@@ -1,0 +1,31 @@
+body {
+	background: url(images/Background.png);
+    font-size: 12px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.outer {
+    width: 90%;
+    background-color:#FFFFFF;
+	background: url(images/BG.png);
+	border-radius: 3px;
+    margin: 60px;
+}
+
+.container {
+    /*margin: 60px;*/
+    padding: 57px 59px;
+    height: 690px;
+}
+
+.header {
+	color: #444447;
+	font: 300 32px / 52px Roboto;
+}
+.regions {
+	color: #444447;
+	font: 400 16px / 52px Roboto;
+	height: 17px;
+}
+hr {
+    height: 1px;
+}
