@@ -1,57 +1,120 @@
 <!doctype html>
-<html ng-app='myapp'>
+<html ng-app="myapp" class="no-js" lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<title>GRO-UIUX Problem</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GRO-UIUX Problem</title>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
-	<script src="underscore.js" type="text/javascript"></script>
-	<script src="app.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/app.css">
 
-    <link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="reset.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <script src="js/vendor/modernizr.js"></script>
 </head>
 
-<body>
-    <div class="outer">
-        <div class="container" ng-controller="IndexController">
-            <div class="header">
-                <h1>Data Series Generator</h1>
+<body ng-controller="IndexController">
+    <div class="wrapper container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Data Series Generator</h2>
+                <hr>
             </div>
+        </div>
 
-            <hr />
-
-            <div class="row">
-                <div class="five">
-                    <label for="regionsList">Regions</label>
-                    <select name="regionsList" ng-model='models.regions' multiple
-                        ng-options="region.name for region in data.regions">
-                        <!--<option ng-repeat="region in data.regions" value="{{region.id}}">{{region.name}}</option>-->
-                    </select>
-                    <input type="checkbox" ng-model="models.regionsCombine" />
-                </div>
-                <div class="five">
-                    <label for="cropsList">Crops</label>
-                    <select name="cropsList" ng-model='models.crops' multiple
-                        ng-options="crop.name for crop in data.crops">
-                    <!--	<option ng-repeat="crop in data.crops" value="{{crop.id}}">{{crop.name}}</option>-->
-                    </select>
-                    <input type="checkbox" ng-model="models.cropsCombine" />
-                </div>
-                <div class="two">
-                    <button ng-click="generatePermutations()" class="btn">Generate</button>
-                </div>
-            </div>
-
-            <hr />
-
-            <div class="row" ng-if="models.permutations.length > 0">
-                <h3>Permutations:</h3>
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
                 <div class="row">
-                    <ul>
+                    <div class="col-sm-5">
+                        <h5 class="pad-left">Regions</h5>
+                        <div class="row">
+                            <div class="col-sm-12" ng-click="regionsOpen = !regionsOpen">
+                                <div class="select-container">
+                                    <div class="select-component">
+                                        <div class="select-bar">
+                                            <div class="select-text">{{ models.regionsText }}</div>
+                                            <div class="select-arrows" ng-show="!regionsOpen">
+                                                <img class="icon arrows" src="img/arrows_grey.png" />
+                                            </div>
+                                            <div class="select-arrows open" ng-show="regionsOpen">
+                                                <img class="icon arrows" src="img/arrows_white.png" />
+                                            </div>
+                                        </div>
+                                        <div class="select-options" ng-class="{hide: !regionsOpen}">
+                                            <ul class="select-list">
+                                                <li ng-repeat="region in data.regions">
+                                                    <input type="checkbox" ng-model="region.selected" id="{{region.name}}" name="{{region.name}}"
+                                                           ng-change="itemChanged(region, 'regions')">
+                                                    <label for="{{region.name}}"><span></span>{{ region.name }}</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row combine-checkbox">
+                            <div class="col-sm-12 pad-left">
+                                <input type="checkbox" ng-model="models.regionsCombine" id="regions-check" />
+                                <label for="regions-check"><span></span>Combine select regions</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                        <h5 class="pad-left">Crops</h5>
+                        <div class="row">
+                            <div class="col-sm-12" ng-click="cropsOpen = !cropsOpen">
+                                <div class="select-container">
+                                    <div class="select-component">
+                                        <div class="select-bar">
+                                            <div class="select-text">{{ models.cropsText }}</div>
+                                            <div class="select-arrows" ng-show="!cropsOpen">
+                                                <img class="icon arrows" src="img/arrows_grey.png" />
+                                            </div>
+                                            <div class="select-arrows open" ng-show="cropsOpen">
+                                                <img class="icon arrows" src="img/arrows_white.png" />
+                                            </div>
+                                        </div>
+                                        <div class="select-options" ng-class="{hide: !cropsOpen}">
+                                            <ul class="select-list">
+                                                <li ng-repeat="crop in data.crops">
+                                                    <input type="checkbox" name="{{crop.name}}" id="{{crop.name}}" ng-model="crop.selected"
+                                                           ng-change="itemChanged(crop, 'crops')">
+                                                    <label for="{{crop.name}}"><span></span>{{ crop.name }}</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row combine-checkbox">
+                            <div class="col-sm-12 pad-left">
+                                <input type="checkbox" ng-model="models.cropsCombine" id="crops-check" />
+                                <label for="crops-check"><span></span>Combine select crops</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button ng-click="generatePermutations()" class="btn generate">Generate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 25px;">
+            <div class="col-sm-12"><hr></div>
+        </div>
+
+        <div class="row" id="permutations" ng-if="models.permutations.length > 0">
+            <div class="col-sm-12">
+                <div class="pad-left">
+                    <h5>Permutations:</h5>
+                    <ul id="perm-list">
                         <li ng-repeat="perm in models.permutations">
-                            {{ perm }}
+                            <span class="highlight"></span> {{ perm }}
                         </li>
                     </ul>
                 </div>
@@ -59,5 +122,9 @@
         </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+	<script src="underscore.js" type="text/javascript"></script>
+	<script src="app.js" type="text/javascript"></script>
 </body>
+
 </html>

@@ -6,14 +6,14 @@ app.controller('IndexController', [
 		'use strict';
 
 		var regions = [
-			{id: 0, name: 'Egypt'},
-			{id: 1, name: 'Ethiopia'},
-			{id: 2, name: 'Kenya'}
+			{id: 0, name: 'Egypt', selected: false},
+			{id: 1, name: 'Ethiopia', selected: false},
+			{id: 2, name: 'Kenya', selected: false}
 		];
 		var crops = [
-			{id: 0, name: 'Corn'},
-			{id: 1, name: 'Oat'},
-			{id: 2, name: 'Wheat'}
+			{id: 0, name: 'Corn', selected: false},
+			{id: 1, name: 'Oat', selected: false},
+			{id: 2, name: 'Wheat', selected: false}
 		];
 
 		$scope.data = {
@@ -25,8 +25,13 @@ app.controller('IndexController', [
 			crops: [],
 			permutations: [],
 			regionsCombine: false,
-			cropsCombine: false
+			cropsCombine: false,
+            regionsText: 'Select',
+            cropsText: 'Select'
 		};
+        $scope.regionsSelect = {
+            text: 'Select'
+        }
 
 		function combineSeries(data) {
 			var i, combinedRegions = '';
@@ -41,44 +46,96 @@ app.controller('IndexController', [
 			return combinedRegions;
 		}
 
+        var selectDictionary = {
+            regions: [],
+            crops: []
+        };
 		$scope.generatePermutations = function () {
-			if (_.isEmpty($scope.models.crops) || _.isEmpty($scope.models.regions)) {
+			$scope.models.permutations = [];
+
+			//if (_.isEmpty($scope.models.crops) || _.isEmpty($scope.models.regions)) {
+			if (_.isEmpty(selectDictionary.crops) || _.isEmpty(selectDictionary.regions)) {
 				return;
 			}
-			$scope.models.permutations = [];
 
 			var i, j, temp, _regions = '', _crops = '';
 
 			if (!$scope.models.cropsCombine && !$scope.models.regionsCombine) {
-				for (i = 0; i < $scope.models.regions.length; i++) {
-					for (j = 0; j < $scope.models.crops.length; j++) {
-						temp = '<' + $scope.models.regions[i].name + ', ' + $scope.models.crops[j].name + '>';
+				for (i = 0; i < selectDictionary.regions.length; i++) {
+					for (j = 0; j < selectDictionary.crops.length; j++) {
+						temp = '<' + selectDictionary.regions[i].name + ', ' + selectDictionary.crops[j].name + '>';
 						$scope.models.permutations.push(temp);
 					}
 				}
 
 			} else if ($scope.models.cropsCombine && $scope.models.regionsCombine) {
-				_regions = combineSeries($scope.models.regions);
-				_crops 	= combineSeries($scope.models.crops);
+				_regions = combineSeries(selectDictionary.regions);
+				_crops 	= combineSeries(selectDictionary.crops);
 
 				$scope.models.permutations.push('<' + _regions + ', ' + _crops + '>');
 
 			} else if ($scope.models.cropsCombine && !$scope.models.regionsCombine) {
-				_crops = combineSeries($scope.models.crops);
+				_crops = combineSeries(selectDictionary.crops);
 
-				for (i = 0; i < $scope.models.regions.length; i++) {
-					temp = '<' + $scope.models.regions[i].name + ', ' + _crops + '>';
+				for (i = 0; i < selectDictionary.regions.length; i++) {
+					temp = '<' + selectDictionary.regions[i].name + ', ' + _crops + '>';
 					$scope.models.permutations.push(temp);
 				}
 
 			} else if (!$scope.models.cropsCombine && $scope.models.regionsCombine) {
-				_regions = combineSeries($scope.models.regions);
+				_regions = combineSeries(selectDictionary.regions);
 
-				for (i = 0; i < $scope.models.crops.length; i++) {
-					temp = '<' + _regions + ', ' + $scope.models.crops[i].name + '>';
+				for (i = 0; i < selectDictionary.crops.length; i++) {
+					temp = '<' + _regions + ', ' + selectDictionary.crops[i].name + '>';
 					$scope.models.permutations.push(temp);
 				}
 			}
 		};
+
+        $scope.itemChanged = function (item, dataKey) {
+            var i,
+                temp = '',
+                textKey = dataKey + 'Text';
+
+            if (item.selected) {
+                //selectDictionary[dataKey][item.id] = item.name;
+                selectDictionary[dataKey].push(item);
+            } else {
+                var index = _.findIndex(selectDictionary[dataKey], function (arrayItem) { return arrayItem.id === item.id; });
+                selectDictionary[dataKey].splice(index, 1);
+            }
+
+            /*for (i = 0; i < $scope.data[dataKey].length; i++) {
+                if ($scope.data[dataKey][i].selected) {
+                    temp += $scope.data[dataKey][i].name;
+
+                    if (i < $scope.data[dataKey].length - 1) {
+                        temp += ', ';
+                    }
+                }
+            }*/
+            // TODO: Check not empty
+            /*selectDictionary[dataKey].forEach(function (selectItem, key) {
+                console.log(key);
+                temp += selectItem.name + ', ';
+            });*/
+            // Dictionary
+            /*_.each(selectDictionary[dataKey], function (selectItem) {
+                temp += selectItem + ', ';
+            });*/
+            for (i = 0; i < selectDictionary[dataKey].length; i++) {
+                temp += selectDictionary[dataKey][i].name + ', ';
+            }
+
+            if (temp[temp.length - 2] === ',') {
+                temp = temp.substring(temp.length - 2, -2);
+            }
+
+            if (!temp) {
+                temp = 'Select';
+            }
+
+            $scope.models[textKey] = temp;
+        }
 	}
 ]);
