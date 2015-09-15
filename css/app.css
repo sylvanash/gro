@@ -1,0 +1,185 @@
+body {
+    background: #dddde0;
+    color: #444447;
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.wrapper {
+    margin: 60px auto;
+    padding: 50px;
+    min-height: 690px;
+    background: #fff;
+    border-radius: 5px;
+}
+    .wrapper h2 {
+        font: 300 32px / 42px Roboto;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    .wrapper h5 {
+        font: 400 16px / 32px Roboto;
+    }
+    .wrapper hr {
+        border-color: #444447;
+        margin-bottom: 14px;
+        margin-top: 14px;
+    }
+
+.pad-left {
+    margin: 0px 0px 0px 16px;
+}
+.pad-bot {
+    margin-bottom: 16px;
+}
+
+.select-bar,
+ul.select-list label, ul.select-list input,
+.combine-checkbox label, .combine-checkbox input {
+    cursor: pointer;
+}
+
+.select-container {
+    position: relative;
+}
+.select-component {
+    position: absolute;
+    border-bottom: #cccbd0 3px solid;
+    border-radius: 3px;
+    background: #eeeef1;
+    width: 100%;
+    z-index: 100;
+}
+
+.select-options {
+    z-index: 100;
+}
+
+.select-bar {
+    border-radius: 5px;
+    height: 36px;
+}
+
+.select-text {
+    padding: 10px 15px;/* 5px*/
+    font: 500 13px / 19px Roboto;
+    color: #88888b;
+    width: 83.33%;
+    float: left;
+}
+
+.select-arrows {
+    width: 16.66%;
+    border-left: #88888b 1px solid;
+    display: inline-block;
+    padding: 10px 0px 10px 7%;
+}
+    .select-arrows.open {
+        border-top-right-radius: 3px;
+        background: #88888b;
+    }
+
+ul.select-list {
+    margin: 0;
+    padding: 0;
+}
+ul.select-list li {
+    list-style: none;
+    border-top: #cccbd0 1px solid;
+    padding: 10px 15px;
+}
+ul.select-list label {
+    margin: 0;
+    width: 100%;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+input[type="checkbox"] + label span {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    background: url(../img/unchecked.png) no-repeat;
+    cursor: pointer;
+    box-shadow: inset 1px 1px 1px 1px #cccbd0;
+    margin-right: 10px;
+}
+input[type="checkbox"]:checked + label span {
+    background: url(../img/checked.png) no-repeat;
+    box-shadow: 1px 1px 1px #cccbd0;
+}
+
+.combine-checkbox {
+    margin-top: 5px;
+    position: relative;
+    top: 35px;
+    z-index: 10;
+}
+    .combine-checkbox label {
+        font: 500 13px / 36px Roboto;
+        color: #88888b;
+        margin-left: 5px;
+    }
+
+.generate {
+    background: #e61937;
+    border-bottom: #b30c26 3px solid;
+    color: #fff;
+    font: 500 13px / 25px Roboto;
+    margin-top: 32px;
+}
+
+ul#perm-list {
+    margin: 0;
+    padding: 0;
+}
+ul#perm-list li {
+    list-style: none;
+    display: block;
+    font: 500 13px / 36px Roboto;
+    color: #88888b;
+}
+ul#perm-list span.highlight {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    margin-right: 12px;
+}
+ul#perm-list li:first-child span.highlight, ul#perm-list li:nth-child(13) span.highlight {
+  background: #3182bd;
+}
+ul#perm-list li:nth-child(2) span.highlight, ul#perm-list li:nth-child(14) span.highlight {
+  background: #6baed6;
+}
+ul#perm-list li:nth-child(3) span.highlight, ul#perm-list li:nth-child(15) span.highlight {
+  background: #9ecae1;
+}
+ul#perm-list li:nth-child(4) span.highlight, ul#perm-list li:nth-child(16) span.highlight {
+  background: #31a354;
+}
+ul#perm-list li:nth-child(5) span.highlight, ul#perm-list li:nth-child(17) span.highlight {
+  background: #74c476;
+}
+ul#perm-list li:nth-child(6) span.highlight, ul#perm-list li:nth-child(18) span.highlight {
+  background: #a1d99b;
+}
+ul#perm-list li:nth-child(7) span.highlight, ul#perm-list li:nth-child(19) span.highlight {
+  background: #fd8d3c;
+}
+ul#perm-list li:nth-child(8) span.highlight, ul#perm-list li:nth-child(20) span.highlight {
+  background: #fdae6b;
+}
+ul#perm-list li:nth-child(9) span.highlight, ul#perm-list li:nth-child(21) span.highlight {
+  background: #fdd0a2;
+}
+ul#perm-list li:nth-child(10) span.highlight, ul#perm-list li:nth-child(22) span.highlight {
+  background: #756bb1;
+}
+ul#perm-list li:nth-child(11) span.highlight, ul#perm-list li:nth-child(23) span.highlight {
+  background: #9e9ac8;
+}
+ul#perm-list li:nth-child(12) span.highlight, ul#perm-list li:nth-child(24) span.highlight {
+  background: #bcbddc;
+}
